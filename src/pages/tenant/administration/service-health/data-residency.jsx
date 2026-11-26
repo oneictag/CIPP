@@ -126,7 +126,7 @@ const Page = () => {
       fields: [noteField(true)],
       icon: <CippIcons.Block />,
       confirmText:
-        'Festhalten, dass [displayName] die Einstellung bewusst AUS laesst (Daten duerfen im EU Data Boundary liegen; spaeterer Rueckzug in die Schweiz dauert ca. 6 Monate)?',
+        'Festhalten, dass [displayName] die Einstellung bewusst AUS laesst (Daten duerfen im EU Data Boundary liegen; ein spaeterer Rueckzug ins Land dauert ca. 6 Monate)?',
       condition: (row) => row.ConfirmedState !== 'Off',
       relatedQueryKeys: [`${QUERY_KEY}*`],
       multiPost: false,
@@ -154,6 +154,7 @@ const Page = () => {
         simpleColumns={[
           'displayName',
           'Tenant',
+          'Country',
           'Status',
           'NextStep',
           'FactoryDefault',
@@ -193,6 +194,7 @@ const Page = () => {
             'Status',
             'NextStep',
             'FactoryDefault',
+            'Country',
             'MessageCenterId',
             'MeasuredAt',
             'MeasureError',
@@ -222,10 +224,10 @@ const Page = () => {
                 <strong>Store Microsoft 365 customer data in-country</strong> - Stichtag{' '}
                 <strong>14.12.2026</strong> (noch {daysLeft} Tage). Ist die Einstellung dann AUS,
                 darf Microsoft Exchange-, SharePoint-, OneDrive-, Teams- und Copilot-Daten im EU
-                Data Boundary statt in der Schweiz speichern. Aendern darf nur ein Global
-                Administrator, eine API gibt es nicht: Status hier messen, JIT-Admin mit TAP
-                anlegen, im Admin Center einschalten und hier bestaetigen. Die Message-Center-
-                Meldung zeigt nur den Ausgangswert, nicht den heutigen Stand.
+                Data Boundary statt im Land des Tenants (Spalte Land, bei uns CH) speichern. Aendern
+                darf nur ein Global Administrator, eine API gibt es nicht: Status hier messen,
+                JIT-Admin mit TAP anlegen, im Admin Center einschalten und hier bestaetigen. Die
+                Message-Center- Meldung zeigt nur den Ausgangswert, nicht den heutigen Stand.
               </Typography>
             </Alert>
             <CippInfoBar
@@ -270,7 +272,7 @@ const Page = () => {
           type: 'POST',
           data: { Action: '!Measure' },
           confirmText:
-            'Message Center (MC1470878 / MC1470876) fuer die gewaehlten Tenants lesen und den Ausgangswert speichern? Es wird nichts in den Tenants geaendert. Bei allen Tenants dauert das ca. 1 Minute.',
+            'Message Center (MC1470878 / MC1470876) und Land fuer die gewaehlten Tenants lesen und den Ausgangswert speichern? Es wird nichts in den Tenants geaendert. Bei allen Tenants dauert das ca. 1 Minute.',
           relatedQueryKeys: [`${QUERY_KEY}*`],
         }}
         row={{}}
